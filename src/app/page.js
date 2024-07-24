@@ -72,6 +72,7 @@ async function fetchDailyTaskStats(category) {
   }
 }
 
+
 const page = async ({ searchParams }) => {
   async function create(formData) {
     "use server"

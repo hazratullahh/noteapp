@@ -8,6 +8,7 @@ import {
     Chip,
 } from "../../material-tailwind/page";
 import Moment from "./Moment";
+import { formatDate } from "../lib";
 
 export async function CardHome({ note }) {
 
@@ -27,7 +28,8 @@ export async function CardHome({ note }) {
                         ))
                     }
                     <Typography variant="h5" color="blue-gray" className="mb-3">
-                        <Moment specificDate={note?.createdAt} />
+                        {/* <Moment specificDate={note?.date} /> */}
+                        {formatDate(note?.date)}
                     </Typography>
                     <Typography variant="h6" color="blue-gray" className="mb-1">
                         Completed: {note?.completedCount}
