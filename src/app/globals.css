@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Define the animation keyframes */
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Apply the animation to the image */
+.go-up {
+    animation: bounce 4s infinite;
+}
+
+.ql-container.ql-snow {
+    height: 9rem;
+    /* overflow-y: scroll; */
+}
