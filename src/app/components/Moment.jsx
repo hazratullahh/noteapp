@@ -2,8 +2,8 @@ import React from 'react';
 import moment from 'moment';
 
 const TimeAgo = ({ specificDate }) => {
-    const currentTime = moment();
-    const customDate = moment(specificDate);
+    const currentTime = moment().utc();  // Ensure current time is in UTC
+    const customDate = moment(specificDate).utc();  // Ensure specific date is in UTC
 
     const diffInHours = currentTime.diff(customDate, 'hours');
     const diffInDays = currentTime.diff(customDate, 'days');
@@ -12,7 +12,6 @@ const TimeAgo = ({ specificDate }) => {
     let displayText;
 
     if (diffInDays === 0) {
-        displayText = 'Today';
         const minutes = currentTime.diff(customDate, 'minutes');
         if (minutes < 60) {
             displayText = `${minutes} min ago`;
