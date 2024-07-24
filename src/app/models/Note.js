@@ -24,6 +24,8 @@ const NoteSchema = new mongoose.Schema({
       enum: ["Completed", "InComplete"],
       default: "InComplete",
     },
+  }, {
+    timestamps: true,
   }],
   creatorId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -22,25 +22,22 @@ async function fetchDailyTaskStats(category) {
       matchStage,
       {
         // Unwind the details array to de-normalize the data
-        $unwind: '$details'
+        $unwind: "$details"
       },
       {
         // Group by date and accumulate the necessary counts and arrays
         $group: {
           _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } }, // Group by date (YYYY-MM-DD)
           completedCount: {
-            $sum: {
-              $cond: [{ $eq: ["$details.status", "Completed"] }, 1, 0]
-            }
+            $sum: { $cond: [{ $eq: ["$details.status", "Completed"] }, 1, 0] }
           },
           incompleteCount: {
-            $sum: {
-              $cond: [{ $eq: ["$details.status", "InComplete"] }, 1, 0]
-            }
+            $sum: { $cond: [{ $eq: ["$details.status", "InComplete"] }, 1, 0] }
           },
           totalCount: { $sum: 1 },
           categories: { $addToSet: "$details.category" },
-          slug: { $first: "$slug" } // Assuming the slug is present at the document level
+          slug: { $first: "$slug" }, // Assuming the slug is present at the document level
+          createdAt: { $first: "$createdAt" } // Include createdAt field
         }
       },
       {
@@ -52,23 +49,24 @@ async function fetchDailyTaskStats(category) {
           incompleteCount: 1,
           totalCount: 1,
           categories: 1,
-          slug: 1
+          slug: 1,
+          createdAt: 1
         }
       },
       {
-        // Sort by date ascending
+        // Sort by date descending
         $sort: { date: -1 }
       }
     ]);
 
     return {
-      status: 'fulfilled',
+      status: "fulfilled",
       data: dailyStats
     };
   } catch (error) {
-    console.error('Error fetching daily task stats:', error);
+    console.error("Error fetching daily task stats:", error);
     return {
-      status: 'rejected',
+      status: "rejected",
       error: error.message
     };
   }
