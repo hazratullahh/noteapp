@@ -8,6 +8,7 @@ import Note from "@/app/models/Note";
 import connectDB from "@/app/lib/connectDB";
 import TimeAgo from "@/app/components/Moment";
 import { revalidatePath } from "next/cache";
+import { formatDate } from "@/app/lib";
 // import { revalidatePath } from "next/cache";
 // import { redirect } from "next/navigation";
 
@@ -39,7 +40,7 @@ const Page = async ({ params }) => {
         try {
             await connectDB();
 
-          const data=  await Note.create({
+            const data = await Note.create({
                 date: params.slug,
                 details: [
                     {
@@ -72,7 +73,10 @@ const Page = async ({ params }) => {
                     </Button>
                 </Link>
                 <div className="flex justify-between items-center">
-                    <h4 className="font-bold text-sm lg:text-lg"><TimeAgo specificDate={params.slug} /> </h4>
+                    <h4 className="font-bold text-sm lg:text-lg">
+                        {/* <TimeAgo specificDate={params.slug} />  */}
+                        {formatDate(params.slug)}
+                    </h4>
                     <AddNewNote create={create} isSetp={false} />
                 </div>
 
